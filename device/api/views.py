@@ -37,7 +37,7 @@ class DeviceDelegationViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == 'retrieve':
+        if self.action == "list" or self.action == 'retrieve' or self.action == 'partial_update':
             return DeviceDelegationSerializer
         return super().get_serializer_class()
 
