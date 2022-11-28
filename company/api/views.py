@@ -43,7 +43,7 @@ class CustomUserLoginView(generics.CreateAPIView):
         if not user:
             return Response(
                 json.dumps({'Error': "Invalid credentials"}),
-                status=400,
+                status=status.HTTP_400_BAD_REQUEST,
                 content_type="application/json"
             )
 
@@ -55,6 +55,6 @@ class CustomUserLoginView(generics.CreateAPIView):
 
         return Response(
             json.dumps(jwt_token),
-            status=200,
+            status=status.HTTP_200_OK,
             content_type="application/json"
         )
