@@ -9,9 +9,7 @@ class DeviceDelegationInline(admin.StackedInline):
 
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
-    inlines = [
-        DeviceDelegationInline
-    ]
+    inlines = [DeviceDelegationInline]
 
     class Meta:
         model = Device

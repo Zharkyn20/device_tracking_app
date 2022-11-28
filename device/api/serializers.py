@@ -20,21 +20,20 @@ class DeviceCreateSerializer(serializers.ModelSerializer):
             user = request.user
 
         if user.is_company:
-            name_values = Device.objects.filter(company__company_user=user).values_list('name', flat=True)
+            name_values = Device.objects.filter(company__company_user=user).values_list(
+                "name", flat=True
+            )
             company = Company.objects.get(company_user=user)
         else:
             company = user.company
-            name_values = Device.objects.filter(company=company).values_list('name', flat=True)
-
-        if validated_data['name'] in name_values:
-            raise serializers.ValidationError(
-                {"name": "This device already exists."}
+            name_values = Device.objects.filter(company=company).values_list(
+                "name", flat=True
             )
 
-        device = Device.objects.create(
-            company=company,
-            name=validated_data['name']
-        )
+        if validated_data["name"] in name_values:
+            raise serializers.ValidationError({"name": "This device already exists."})
+
+        device = Device.objects.create(company=company, name=validated_data["name"])
         device.save()
 
         return device
@@ -45,10 +44,9 @@ class DeviceCreateSerializer(serializers.ModelSerializer):
 
 
 class DeviceSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Device
-        fields = '__all__'
+        fields = "__all__"
 
 
 class DeviceDelegationCreateSerializer(serializers.ModelSerializer):
@@ -57,17 +55,13 @@ class DeviceDelegationCreateSerializer(serializers.ModelSerializer):
     condition_before = serializers.CharField()
 
     def create(self, validated_data):
-        delta = validated_data['return_date'] - validated_data['check_out_date']
+        delta = validated_data["return_date"] - validated_data["check_out_date"]
         if delta.days < 0:
-            raise serializers.ValidationError(
-                {'return_date': 'Invalid return date'}
-            )
+            raise serializers.ValidationError({"return_date": "Invalid return date"})
 
-        validated_data['duration_days'] = delta.days
+        validated_data["duration_days"] = delta.days
 
-        device_delegation = DeviceDelegation.objects.create(
-            **validated_data
-        )
+        device_delegation = DeviceDelegation.objects.create(**validated_data)
         device_delegation.save()
 
         return device_delegation
@@ -75,15 +69,15 @@ class DeviceDelegationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceDelegation
         fields = (
-            'device',
-            'check_out_date',
-            'return_date',
-            'condition_before',
+            "device",
+            "employee",
+            "check_out_date",
+            "return_date",
+            "condition_before",
         )
 
 
 class DeviceDelegationSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = DeviceDelegation
-        fields = '__all__'
+        fields = "__all__"

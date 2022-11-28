@@ -21,19 +21,19 @@ from drf_yasg import openapi
 
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Device Tracker API",
-      default_version='v1',
-      description="Application allows to compahy and staff track devices over employees.",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="zharkynaskatkyzy@gmail.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Device Tracker API",
+        default_version="v1",
+        description="Application allows to compahy and staff track devices over employees.",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="zharkynaskatkyzy@gmail.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
-API_PREFIX = 'api/v1/'
+API_PREFIX = "api/v1/"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -42,7 +42,6 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-    path(f'{API_PREFIX}users/', include('company.urls')),
-    path(f'{API_PREFIX}equipment/', include('device.urls')),
-
+    path(f"{API_PREFIX}users/", include("company.urls")),
+    path(f"{API_PREFIX}equipment/", include("device.urls")),
 ]

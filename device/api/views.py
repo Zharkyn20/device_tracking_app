@@ -8,10 +8,7 @@ from device.api.serializers import (
     DeviceDelegationCreateSerializer,
     DeviceDelegationSerializer,
 )
-from device.models import (
-    DeviceDelegation,
-    Device
-)
+from device.models import DeviceDelegation, Device
 
 
 class DeviceViewSet(ModelViewSet):
@@ -27,7 +24,7 @@ class DeviceViewSet(ModelViewSet):
         return Device.objects.filter(company__company_user=self.request.user)
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return DeviceSerializer
         return super().get_serializer_class()
 
@@ -37,7 +34,11 @@ class DeviceDelegationViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == 'retrieve' or self.action == 'partial_update':
+        if (
+            self.action == "list"
+            or self.action == "retrieve"
+            or self.action == "partial_update"
+        ):
             return DeviceDelegationSerializer
         return super().get_serializer_class()
 
@@ -47,6 +48,6 @@ class DeviceDelegationViewSet(ModelViewSet):
             company = Company.objects.get(staff__user=user)
             return DeviceDelegation.objects.filter(device__company=company)
 
-        return DeviceDelegation.objects.filter(device__company__company_user=self.request.user)
-
-
+        return DeviceDelegation.objects.filter(
+            device__company__company_user=self.request.user
+        )
