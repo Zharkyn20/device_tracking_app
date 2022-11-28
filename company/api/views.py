@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from company.api import permissions
+from utils import permissions
 from company.models import (
     Company,
     CustomUser,
