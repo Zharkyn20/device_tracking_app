@@ -28,3 +28,8 @@ python3 manage.py migrate
 ```
 python3 manage.py runserver
 ```
+
+### Comments
+There are still features I would like to improve, also I want to add tests.
+Due to deadline, I will leave the main branch that last updated around 9 pm.
+But I will continue to refactor code in dev branch. Hope you will check =)
