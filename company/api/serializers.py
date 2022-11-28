@@ -66,3 +66,7 @@ class CompanyRegistrationSerializer(serializers.ModelSerializer):
 
         return user
 
+
+class CustomUserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(validators=[validate_password, ])
