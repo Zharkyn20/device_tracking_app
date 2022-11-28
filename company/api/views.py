@@ -29,9 +29,10 @@ class CompanyRegistrationView(generics.CreateAPIView):
     """
     Company registration endpoint
     """
+
     serializer_class = CompanyRegistrationSerializer
 
-    @swagger_auto_schema(tags=['Company'])
+    @swagger_auto_schema(tags=["Company"])
     def create(self, request, *args, **kwargs):
 
         serializer = self.serializer_class(data=request.data)
@@ -39,8 +40,7 @@ class CompanyRegistrationView(generics.CreateAPIView):
         user = serializer.save()
 
         company = Company.objects.create(
-            company_user=user,
-            company_name=request.data['company_name']
+            company_user=user, company_name=request.data["company_name"]
         )
         company.save()
 
@@ -52,31 +52,31 @@ class CustomUserLoginView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         if not request.data:
-            return Response({'Error': "Please provide username/password"}, status="400")
+            return Response({"Error": "Please provide username/password"}, status="400")
 
-        email = request.data['email']
-        password = request.data['password']
+        email = request.data["email"]
+        password = request.data["password"]
         user = get_object_or_404(CustomUser, email=email)
         if not user.check_password(password):
-            return Response({'Error': "Invalid username/password"}, status="400")
+            return Response({"Error": "Invalid username/password"}, status="400")
 
         if not user:
             return Response(
-                json.dumps({'Error': "Invalid credentials"}),
+                json.dumps({"Error": "Invalid credentials"}),
                 status=status.HTTP_400_BAD_REQUEST,
-                content_type="application/json"
+                content_type="application/json",
             )
 
         payload = {
-            'id': user.id,
-            'email': user.email,
+            "id": user.id,
+            "email": user.email,
         }
-        jwt_token = {'token': jwt.encode(payload, SECRET_KEY)}
+        jwt_token = {"token": jwt.encode(payload, SECRET_KEY)}
 
         return Response(
             json.dumps(jwt_token),
             status=status.HTTP_200_OK,
-            content_type="application/json"
+            content_type="application/json",
         )
 
 
@@ -92,15 +92,14 @@ class StaffViewSet(ModelViewSet):
         staff = serializer.save()
 
         staff = Staff.objects.create(
-            user=staff,
-            company=Company.objects.get(company_user=user)
+            user=staff, company=Company.objects.get(company_user=user)
         )
         staff.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return StaffSerializer
         return super().get_serializer_class()
 
@@ -110,12 +109,10 @@ class StaffViewSet(ModelViewSet):
 
 class EmployeeViewSet(ModelViewSet):
     serializer_class = EmployeeRegistrationSerializer
-    permission_classes = [
-        IsAuthenticated
-    ]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return EmployeeSerializer
         return super().get_serializer_class()
 

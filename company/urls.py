@@ -5,7 +5,7 @@ from company.api.views import (
     CompanyRegistrationView,
     CustomUserLoginView,
     StaffViewSet,
-    EmployeeViewSet
+    EmployeeViewSet,
 )
 
 router = DefaultRouter()
@@ -16,6 +16,6 @@ router.register("employee", EmployeeViewSet, basename="employee")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("company_registration/", CompanyRegistrationView.as_view(), name='company'),
-    path("login/", CustomUserLoginView.as_view(), name='login'),
+    path("company_registration/", CompanyRegistrationView.as_view(), name="company"),
+    path("login/", CustomUserLoginView.as_view(), name="login"),
 ]

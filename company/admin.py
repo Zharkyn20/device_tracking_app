@@ -1,11 +1,6 @@
 from django.contrib import admin
 
-from company.models import (
-    Company,
-    CustomUser,
-    Staff,
-    Employee
-)
+from company.models import Company, CustomUser, Staff, Employee
 from device.models import Device
 
 
@@ -23,18 +18,13 @@ class DeviceInline(admin.StackedInline):
 
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-
     class Meta:
         model = CustomUser
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    inlines = [
-        StaffInline,
-        EmployeeInline,
-        DeviceInline
-    ]
+    inlines = [StaffInline, EmployeeInline, DeviceInline]
 
     class Meta:
         model = Company
