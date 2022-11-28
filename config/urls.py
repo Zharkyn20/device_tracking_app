@@ -33,6 +33,8 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
+API_PREFIX = 'api/v1/'
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     re_path(
@@ -40,4 +42,5 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
+    path(f'{API_PREFIX}company/', include('company.urls'))
 ]
