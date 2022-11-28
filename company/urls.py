@@ -1,12 +1,21 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from company.api.views import (
     CompanyRegistrationView,
-    CustomUserLoginView
+    CustomUserLoginView,
+    StaffViewSet,
+    EmployeeViewSet
 )
+
+router = DefaultRouter()
+
+router.register("staff", StaffViewSet, basename="staff")
+router.register("employee", EmployeeViewSet, basename="employee")
 
 
 urlpatterns = [
+    path("", include(router.urls)),
     path("registration/", CompanyRegistrationView.as_view(), name='company'),
     path("login/", CustomUserLoginView.as_view(), name='login'),
 ]
