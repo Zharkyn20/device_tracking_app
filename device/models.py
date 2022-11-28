@@ -20,9 +20,9 @@ class DeviceDelegation(models.Model):
         Device,
         on_delete=models.CASCADE,
     )
-    duration_days = models.IntegerField(default=21)
-    check_out_date = models.DateField(null=True, blank=True)
-    return_date = models.DateField(null=True, blank=True)
-    condition_before = models.TextField(default='test')
+    duration_days = models.IntegerField()
+    check_out_date = models.DateField()
+    return_date = models.DateField()
+    condition_before = models.TextField()
     condition_after = models.TextField(null=True, blank=True)
 
