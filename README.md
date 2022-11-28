@@ -2,7 +2,7 @@ Device Tracking App:
 - Allows register companies
 - Allows register employees and staff if user logged in (and has is_company status True)
 - Allows register devices and device delegation for logged in staff and company
-- Automatically counts duration date
+- Automatically counts device delegation's duration days
 
 
 ### Installation
