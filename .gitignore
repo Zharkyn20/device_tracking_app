@@ -3,4 +3,7 @@ venv
 db.sqlite3
 company/migrations/0*
 device/migrations/0*
-
+company/__pycache__
+device/__pycache__
+company/migrations/__pycache__
+device/migrations/__pycache__
