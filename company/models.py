@@ -19,3 +19,19 @@ class Company(models.Model):
 
     class Meta:
         verbose_name_plural = 'Companies'
+
+
+class Staff(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='company_user')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        verbose_name_plural = 'Staff'
+
+
+class Employee(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250, unique=True)

@@ -5,5 +5,8 @@ company/migrations/0*
 device/migrations/0*
 company/__pycache__
 device/__pycache__
+company/api/__pycache__
+device/api/__pycache__
 company/migrations/__pycache__
 device/migrations/__pycache__
+config/__pycache__
